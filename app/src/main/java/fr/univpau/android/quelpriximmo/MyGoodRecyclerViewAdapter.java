@@ -1,24 +1,28 @@
 package fr.univpau.android.quelpriximmo;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import fr.univpau.android.quelpriximmo.dummy.DummyContent.DummyItem;
+import fr.univpau.android.quelpriximmo.GoodContent.GoodItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link GoodItem}.
  * TODO: Replace the implementation with code for your data type.
  */
+
 public class MyGoodRecyclerViewAdapter extends RecyclerView.Adapter<MyGoodRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<GoodItem> mValues;
 
-    public MyGoodRecyclerViewAdapter(List<DummyItem> items) {
+    public MyGoodRecyclerViewAdapter(List<GoodItem> items) {
         mValues = items;
     }
 
@@ -31,9 +35,12 @@ public class MyGoodRecyclerViewAdapter extends RecyclerView.Adapter<MyGoodRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        if (mValues.get(position).type_local.equals("Appartement"))
+            holder.mImage.setImageResource(R.drawable.appartement);
+        else if (mValues.get(position).type_local.equals("Maison"))
+            holder.mImage.setImageResource(R.drawable.maison);
+        holder.mSurface.setText(mValues.get(position).surface_relle_bati);
+        holder.mLocal_Pieces.setText(mValues.get(position).nb_pieces_principales);
     }
 
     @Override
@@ -42,21 +49,15 @@ public class MyGoodRecyclerViewAdapter extends RecyclerView.Adapter<MyGoodRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final ImageView mImage;
+        public final TextView mSurface;
+        public final TextView mLocal_Pieces;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            mImage = (ImageView) view.findViewById(R.id.imageView2);
+            mSurface = (TextView) view.findViewById(R.id.surface);
+            mLocal_Pieces = (TextView) view.findViewById(R.id.local_pieces);
         }
     }
 }
