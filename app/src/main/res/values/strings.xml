@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">QuelPrixImmo</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="label_nature_mutation">Nature de la mutation</string>
+    <string name="label_type_local">Type de local</string>
+    <string name="label_nombre_pieces_principales">Nombre de pièces principales</string>
+    <string name="hint_nombre_pieces_principales">1, 2, 3...</string>
+    <string name="button_search">Rechercher</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
