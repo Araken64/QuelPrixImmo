@@ -53,7 +53,7 @@
             app:layout_rowWeight="1">
 
             <TextView
-                android:id="@+id/date&nature_mutation"
+                android:id="@+id/label_date_nature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -62,7 +62,7 @@
                 android:textSize="14sp" />
 
             <Spinner
-                android:id="@+id/date&nature_mutation"
+                android:id="@+id/date_nature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0" />
