@@ -34,12 +34,12 @@ public class MutationRecyclerViewAdapter extends RecyclerView.Adapter<MutationRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mutation_item = mutation_values.get(position);
         String str_valeur_nature;
-        holder.valeur_nature.setText(mutation_values.get(position).);
+        // holder.valeur_nature.setText(mutation_values.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mutation_values.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
