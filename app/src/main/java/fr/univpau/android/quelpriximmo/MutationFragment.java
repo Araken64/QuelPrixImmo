@@ -61,7 +61,7 @@ public class MutationFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MutationRecyclerViewAdapter(DummyContent.ITEMS));
+            recyclerView.setAdapter(new MutationRecyclerViewAdapter(MutationContent.ITEMS));
         }
         return view;
     }
