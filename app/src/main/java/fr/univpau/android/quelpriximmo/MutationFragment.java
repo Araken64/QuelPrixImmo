@@ -62,6 +62,7 @@ public class MutationFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MutationRecyclerViewAdapter(MutationContent.ITEMS));
+            android.util.Log.d("elian", MutationContent.ITEMS.toString());
         }
         return view;
     }

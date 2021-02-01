@@ -1,7 +1,5 @@
 package fr.univpau.android.quelpriximmo;
 
-import fr.univpau.android.quelpriximmo.dummy.DummyContent;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +14,27 @@ public class MutationContent {
         ITEM_MAP.put(item.id, item);
     }
 
+    private static final int COUNT = 5;
+
+    static {
+        // Add some sample items.
+        for (int i = 1; i <= COUNT; i++) {
+            addItem(createMutationItem(i));
+        }
+    }
+
+    private static MutationItem createMutationItem(int position) {
+        MutationItem mutationItem = new MutationItem();
+        mutationItem.valeur_fonciere = "165 000 €";
+        mutationItem.nature_mutation = "Vente";
+        mutationItem.suffixe_numero = "B";
+        mutationItem.voie = "3";
+        mutationItem.type_voie = "RUE";
+        mutationItem.voie = "DE L'EGLISE";
+        mutationItem.date_mutation = "14/12/2015";
+        return new MutationItem();
+    }
+
     public static class MutationItem {
         public String id = "";
         public String valeur_fonciere = "";
@@ -25,9 +44,9 @@ public class MutationContent {
         public String numero_voie = "";
         public String type_voie = "";
         public String voie = "";
+        public List<GoodContent.GoodItem> good_list = new ArrayList<>();
 
-        public MutationItem(String id) {
-            this.id = id;
+        public MutationItem() {
         }
 
         @Override
