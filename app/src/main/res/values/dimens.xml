@@ -7,9 +7,14 @@
     <dimen name="margin_right_image">7dp</dimen>
     <dimen name="margin_mutation">10dp</dimen>
     <dimen name="margin_good_list">10dp</dimen>
+    <dimen name="margin_title">10dp</dimen>
+    <dimen name="margin_button">10dp</dimen>
 
+    <dimen name="image_size_very_big">80dp</dimen>
     <dimen name="image_size_big">50dp</dimen>
     <dimen name="image_size_little">40dp</dimen>
+
+    <dimen name="button_height">60dp</dimen>
 
     <dimen name="rounded_background">15dp</dimen>
 
