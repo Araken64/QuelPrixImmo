@@ -25,14 +25,16 @@ public class MutationContent {
 
     private static MutationItem createMutationItem(int position) {
         MutationItem mutationItem = new MutationItem();
+        mutationItem.id = String.valueOf(position);
         mutationItem.valeur_fonciere = "165 000 €";
         mutationItem.nature_mutation = "Vente";
         mutationItem.suffixe_numero = "B";
-        mutationItem.voie = "3";
+        mutationItem.numero_voie = "3";
         mutationItem.type_voie = "RUE";
         mutationItem.voie = "DE L'EGLISE";
         mutationItem.date_mutation = "14/12/2015";
-        return new MutationItem();
+        mutationItem.good_list = GoodContent.ITEMS;
+        return mutationItem;
     }
 
     public static class MutationItem {
