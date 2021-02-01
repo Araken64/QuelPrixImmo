@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ResultsActivity">
 
-    <include
-        layout="@layout/fragment_mutation_list"
+    <fragment
+        android:id="@+id/fragment"
+        android:name="fr.univpau.android.quelpriximmo.MutationFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
