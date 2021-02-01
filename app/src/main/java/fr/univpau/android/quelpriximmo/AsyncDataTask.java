@@ -17,29 +17,25 @@ public class AsyncDataTask extends AsyncTask<URL, Void, JSONObject>
     @Override
     protected JSONObject doInBackground(URL... params)
     {
-        URLConnection urlConn1 = null;
-        URLConnection urlConn2 = null;
-        BufferedReader bufferedReader1 = null;
-        BufferedReader bufferedReader2 = null;
+        URL url;
+        URLConnection urlConn;
+        BufferedReader bufferedReader = null;
+        StringBuffer stringBuffer = new StringBuffer();
+        String line;
+
         try
         {
-            URL url1 = params[0];
-            URL url2 = params[1];
-            urlConn1 = url1.openConnection();
-            urlConn2 = url2.openConnection();
-            bufferedReader1 = new BufferedReader(new InputStreamReader(urlConn1.getInputStream()));
-            bufferedReader2 = new BufferedReader(new InputStreamReader(urlConn2.getInputStream()));
+            if (params.length == 1) {
+                url = params[0];
+                url.openConnection();
+                urlConn = url.openConnection();
+                bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+                while ((line = bufferedReader.readLine()) != null)
+                {
+                    stringBuffer.append(line);
+                }
+            }
 
-            StringBuffer stringBuffer = new StringBuffer();
-            String line;
-            while ((line = bufferedReader1.readLine()) != null)
-            {
-                stringBuffer.append(line);
-            }
-            while ((line = bufferedReader2.readLine()) != null)
-            {
-                stringBuffer.append(line);
-            }
             return new JSONObject(stringBuffer.toString());
         }
         catch(Exception ex)
@@ -49,11 +45,10 @@ public class AsyncDataTask extends AsyncTask<URL, Void, JSONObject>
         }
         finally
         {
-            if(bufferedReader1 != null && bufferedReader2 != null)
+            if(bufferedReader != null)
             {
                 try {
-                    bufferedReader1.close();
-                    bufferedReader2.close();
+                    bufferedReader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

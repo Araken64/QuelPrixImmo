@@ -37,6 +37,7 @@
 
             <Spinner
                 android:id="@+id/type_local"
+                android:entries="@array/type_local_entries"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0" />
@@ -63,6 +64,7 @@
 
             <Spinner
                 android:id="@+id/nature_mutation"
+                android:entries="@array/nature_mutation_entries"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0" />
