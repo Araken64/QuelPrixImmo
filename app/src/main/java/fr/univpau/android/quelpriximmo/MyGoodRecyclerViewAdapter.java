@@ -1,8 +1,8 @@
 package fr.univpau.android.quelpriximmo;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,44 +20,47 @@ import java.util.List;
 
 public class MyGoodRecyclerViewAdapter extends RecyclerView.Adapter<MyGoodRecyclerViewAdapter.ViewHolder> {
 
-    private final List<GoodItem> mValues;
+    private final List<GoodItem> good_values;
 
     public MyGoodRecyclerViewAdapter(List<GoodItem> items) {
-        mValues = items;
+        good_values = items;
     }
 
     @Override
+    @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.fragment_good, parent, false);
+            .inflate(R.layout.good, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        if (mValues.get(position).type_local.equals("Appartement"))
-            holder.mImage.setImageResource(R.drawable.appartement);
-        else if (mValues.get(position).type_local.equals("Maison"))
-            holder.mImage.setImageResource(R.drawable.maison);
-        holder.mSurface.setText(mValues.get(position).surface_relle_bati);
-        holder.mLocal_Pieces.setText(mValues.get(position).nb_pieces_principales);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        holder.good_item = good_values.get(position);
+        if (holder.good_item.type_local.equals("Appartement"))
+            holder.image_good.setImageResource(R.drawable.appartement);
+        else if (holder.good_item.type_local.equals("Maison"))
+            holder.image_good.setImageResource(R.drawable.maison);
+        holder.surface.setText(holder.good_item.surface_relle_bati);
+        holder.local_pieces.setText(holder.good_item.type_local + " / " +holder.good_item.nb_pieces_principales);
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return good_values.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final ImageView mImage;
-        public final TextView mSurface;
-        public final TextView mLocal_Pieces;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final ImageView image_good;
+        public final TextView surface;
+        public final TextView local_pieces;
+        public GoodItem good_item;
 
         public ViewHolder(View view) {
             super(view);
-            mImage = (ImageView) view.findViewById(R.id.imageView2);
-            mSurface = (TextView) view.findViewById(R.id.surface);
-            mLocal_Pieces = (TextView) view.findViewById(R.id.local_pieces);
+            image_good = (ImageView) view.findViewById(R.id.imageView2);
+            surface = (TextView) view.findViewById(R.id.surface);
+            local_pieces = (TextView) view.findViewById(R.id.local_pieces);
         }
     }
 }
