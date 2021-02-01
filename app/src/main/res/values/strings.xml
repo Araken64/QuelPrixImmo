@@ -9,8 +9,14 @@
     <string name="button_search">Rechercher</string>
 
     <string name="exemple_valeur_nature">165 000 € / Vente</string>
+    <string name="exemple_valeur_fonciere">165 000 €</string>
+    <string name="exemple_nature_mutation">Vente</string>
     <string name="exemple_date_mutation">14/12/2015</string>
-    <string name="exemple_adresse">3 RUE DE L\'EGLISE</string>
+    <string name="exemple_adresse">3B RUE DE L\'EGLISE</string>
+    <string name="exemple_numero_voie">3</string>
+    <string name="exemple_suffixe_numero">B</string>
+    <string name="exemple_type_voie">RUE</string>
+    <string name="exemple_voie">DE L\'EGLISE</string>
     <string name="exemple_surface">128m2</string>
     <string name="exemple_local_pieces">Maison/4p</string>
 
