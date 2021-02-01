@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="padding_good">10dp</dimen>
+    <dimen name="padding_mutation">10dp</dimen>
+
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="padding_item_list">10dp</dimen>
     <dimen name="margin_right_image">7dp</dimen>
+    <dimen name="margin_mutation">10dp</dimen>
+    <dimen name="margin_good_list">10dp</dimen>
+
+    <dimen name="image_size_big">50dp</dimen>
+    <dimen name="image_size_little">40dp</dimen>
+
+    <dimen name="rounded_background">15dp</dimen>
+
 </resources>
