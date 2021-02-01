@@ -7,16 +7,19 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/grid_mutation"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/margin_mutation"
         android:layout_weight="1"
+        android:background="@drawable/mutation_rounded_background"
+        android:padding="@dimen/padding_mutation"
         app:columnCount="2"
         app:rowCount="2">
 
         <ImageView
             android:id="@+id/image_mutation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/image_size_big"
+            android:layout_height="@dimen/image_size_big"
             android:layout_marginEnd="@dimen/margin_right_image"
             android:layout_marginRight="@dimen/margin_right_image"
             android:layout_weight="1"
@@ -24,10 +27,10 @@
             app:layout_column="0"
             app:layout_gravity="center"
             app:layout_row="0"
-            app:srcCompat="@android:drawable/ic_menu_today" />
+            app:srcCompat="@drawable/crayon" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
@@ -44,7 +47,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/exemple_valeur_nature" />
+                    android:text="@string/exemple_valeur_nature"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -58,7 +63,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/exemple_date_mutation" />
+                    android:text="@string/exemple_date_mutation"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -77,11 +83,11 @@
         </LinearLayout>
 
         <include
-            layout="@layout/fragment_good_list"
-            android:layout_width="wrap_content"
+            layout="@layout/good_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_good_list"
             app:layout_columnSpan="2"
-            app:layout_gravity="center"
             app:layout_row="1" />
 
     </androidx.gridlayout.widget.GridLayout>
