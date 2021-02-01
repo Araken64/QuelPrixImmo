@@ -15,9 +15,7 @@ public class PositionManager {
         lm = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
-
         provider = lm.getBestProvider(criteria, true);
-
         if (provider != null) {
             position = lm.getLastKnownLocation(provider);
         }
