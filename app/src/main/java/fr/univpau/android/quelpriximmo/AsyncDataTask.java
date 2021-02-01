@@ -12,16 +12,17 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class AsyncDataTask extends AsyncTask<Void, Void, JSONObject>
+public class AsyncDataTask extends AsyncTask<URL, Void, JSONObject>
 {
     @Override
-    protected JSONObject doInBackground(Void... params)
+    protected JSONObject doInBackground(URL... params)
     {
         URLConnection urlConn = null;
         BufferedReader bufferedReader = null;
         try
         {
-            URL url = new URL("https://api.cquest.org/dvf?lat=" + SearchActivity.latitude + "&lon=" + SearchActivity.longitude + "&dist=" + SearchActivity.range);
+            URL url = params[0];
+            Log.i("RES", url.toString());
             urlConn = url.openConnection();
             bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
@@ -31,12 +32,11 @@ public class AsyncDataTask extends AsyncTask<Void, Void, JSONObject>
             {
                 stringBuffer.append(line);
             }
-
             return new JSONObject(stringBuffer.toString());
         }
         catch(Exception ex)
         {
-            Log.e("App", "yourDataTask", ex);
+            Log.e("RES", "yourDataTask", ex);
             return null;
         }
         finally
@@ -55,13 +55,6 @@ public class AsyncDataTask extends AsyncTask<Void, Void, JSONObject>
     @Override
     protected void onPostExecute(JSONObject response)
     {
-        if(response != null)
-        {
-            try {
-                Log.e("App", "Success: " + response.getString("yourJsonElement") );
-            } catch (JSONException ex) {
-                Log.e("App", "Failure", ex);
-            }
-        }
+
     }
 }
