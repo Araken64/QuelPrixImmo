@@ -17,18 +17,26 @@ public class AsyncDataTask extends AsyncTask<URL, Void, JSONObject>
     @Override
     protected JSONObject doInBackground(URL... params)
     {
-        URLConnection urlConn = null;
-        BufferedReader bufferedReader = null;
+        URLConnection urlConn1 = null;
+        URLConnection urlConn2 = null;
+        BufferedReader bufferedReader1 = null;
+        BufferedReader bufferedReader2 = null;
         try
         {
-            URL url = params[0];
-            Log.i("RES", url.toString());
-            urlConn = url.openConnection();
-            bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+            URL url1 = params[0];
+            URL url2 = params[1];
+            urlConn1 = url1.openConnection();
+            urlConn2 = url2.openConnection();
+            bufferedReader1 = new BufferedReader(new InputStreamReader(urlConn1.getInputStream()));
+            bufferedReader2 = new BufferedReader(new InputStreamReader(urlConn2.getInputStream()));
 
             StringBuffer stringBuffer = new StringBuffer();
             String line;
-            while ((line = bufferedReader.readLine()) != null)
+            while ((line = bufferedReader1.readLine()) != null)
+            {
+                stringBuffer.append(line);
+            }
+            while ((line = bufferedReader2.readLine()) != null)
             {
                 stringBuffer.append(line);
             }
@@ -41,10 +49,11 @@ public class AsyncDataTask extends AsyncTask<URL, Void, JSONObject>
         }
         finally
         {
-            if(bufferedReader != null)
+            if(bufferedReader1 != null && bufferedReader2 != null)
             {
                 try {
-                    bufferedReader.close();
+                    bufferedReader1.close();
+                    bufferedReader2.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

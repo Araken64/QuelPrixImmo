@@ -3,24 +3,14 @@ package fr.univpau.android.quelpriximmo;
 import android.os.AsyncTask;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import fr.univpau.android.quelpriximmo.listeners.ButtonSearchListener;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
-
 import static fr.univpau.android.quelpriximmo.PositionManager.getPositionViaGPS;
 
 public class SearchActivity extends AppCompatActivity {
@@ -41,10 +31,12 @@ public class SearchActivity extends AppCompatActivity {
         Log.i("GPS", "Longitude" + position.getLongitude());
         latitude = position.getLatitude();
         longitude = position.getLongitude();
-        URL url = null;
+        URL url1 = null;
+        URL url2 = null;
         try {
-            url = new URL("https://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range);
-            AsyncTask<URL, Void, JSONObject> task = new AsyncDataTask().execute(url);
+            url1 = new URL("https://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range + "&type_local=Maison");
+            url2 = new URL("https://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range + "&type_local=Appartement");
+            AsyncTask<URL, Void, JSONObject> task = new AsyncDataTask().execute(url1, url2);
             JSONObject datas = task.get();
             Log.i("RES", datas.toString());
         } catch (MalformedURLException e) {
