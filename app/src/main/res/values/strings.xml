@@ -23,6 +23,11 @@
     <string name="description_image_good">Image - Type de local</string>
     <string name="description_image_mutation">Image - Mutation</string>
 
+    <string name="spinner_choice_tout">Tout</string>
+    <string name="spinner_choice_maison">Maison</string>
+    <string name="spinner_choice_appartement">Appartement</string>
+    <string name="spinner_choice_vente">Vente</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

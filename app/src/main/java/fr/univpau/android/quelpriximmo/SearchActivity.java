@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import fr.univpau.android.quelpriximmo.listeners.ButtonSearchListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +26,7 @@ import static fr.univpau.android.quelpriximmo.PositionManager.getPositionViaGPS;
 public class SearchActivity extends AppCompatActivity {
     public static double latitude;
     public static double longitude;
-    public int range = 500;
+    public static int range = 500;
     URL url = null;
     AsyncTask<URL, Void, JSONObject> task = null;
 
@@ -33,10 +34,10 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        /*
+
         Button button_search = (Button) findViewById(R.id.button_search);
         button_search.setOnClickListener(new ButtonSearchListener(this));
-        */
+
 
         Location position = getPositionViaGPS(this);
         Log.i("GPS", "Latitude = " + position.getLatitude());
@@ -44,8 +45,8 @@ public class SearchActivity extends AppCompatActivity {
         latitude = position.getLatitude();
         longitude = position.getLongitude();
 
-        Button button_search = findViewById(R.id.button_search);
-        button_search.setOnClickListener(new View.OnClickListener() {
+        // Button button_search = findViewById(R.id.button_search);
+        /* button_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Spinner spinner_type_local = findViewById(R.id.type_local);
@@ -61,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
                     } else {
                         url = new URL("https://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range + "&nature_mutation=" + str_nature_mutation + "&type_local=" + str_type_local);
                     }
-                    /*TODO A faire en début de l'activité result avec un petit waiting screen*/
+//                    TODO A faire en début de l'activité result avec un petit waiting screen
                     task = new AsyncDataTask().execute(url);
                     JSONObject datas = task.get();
                     JSONArray array_json_objects1 = (JSONArray) datas.get("features");
@@ -89,7 +90,7 @@ public class SearchActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });
+        }); */
 
     }
 }

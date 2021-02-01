@@ -11,12 +11,12 @@
     </string-array>
 
     <string-array name="type_local_entries">
-        <item>Tout</item>
-        <item>Maison</item>
-        <item>Appartement</item>
+        <item>@string/spinner_choice_tout</item>
+        <item>@string/spinner_choice_maison</item>
+        <item>@string/spinner_choice_appartement</item>
     </string-array>
 
     <string-array name="nature_mutation_entries">
-        <item>Vente</item>
+        <item>@string/spinner_choice_vente</item>
     </string-array>
 </resources>
