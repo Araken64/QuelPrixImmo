@@ -12,39 +12,48 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class AsyncDataTask extends AsyncTask<Void, Void, JSONObject>
+public class AsyncDataTask extends AsyncTask<URL, Void, JSONObject>
 {
     @Override
-    protected JSONObject doInBackground(Void... params)
+    protected JSONObject doInBackground(URL... params)
     {
-        URLConnection urlConn = null;
-        BufferedReader bufferedReader = null;
+        URLConnection urlConn1 = null;
+        URLConnection urlConn2 = null;
+        BufferedReader bufferedReader1 = null;
+        BufferedReader bufferedReader2 = null;
         try
         {
-            URL url = new URL("https://api.cquest.org/dvf?lat=" + SearchActivity.latitude + "&lon=" + SearchActivity.longitude + "&dist=" + SearchActivity.range);
-            urlConn = url.openConnection();
-            bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+            URL url1 = params[0];
+            URL url2 = params[1];
+            urlConn1 = url1.openConnection();
+            urlConn2 = url2.openConnection();
+            bufferedReader1 = new BufferedReader(new InputStreamReader(urlConn1.getInputStream()));
+            bufferedReader2 = new BufferedReader(new InputStreamReader(urlConn2.getInputStream()));
 
             StringBuffer stringBuffer = new StringBuffer();
             String line;
-            while ((line = bufferedReader.readLine()) != null)
+            while ((line = bufferedReader1.readLine()) != null)
             {
                 stringBuffer.append(line);
             }
-
+            while ((line = bufferedReader2.readLine()) != null)
+            {
+                stringBuffer.append(line);
+            }
             return new JSONObject(stringBuffer.toString());
         }
         catch(Exception ex)
         {
-            Log.e("App", "yourDataTask", ex);
+            Log.e("RES", "yourDataTask", ex);
             return null;
         }
         finally
         {
-            if(bufferedReader != null)
+            if(bufferedReader1 != null && bufferedReader2 != null)
             {
                 try {
-                    bufferedReader.close();
+                    bufferedReader1.close();
+                    bufferedReader2.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -55,13 +64,6 @@ public class AsyncDataTask extends AsyncTask<Void, Void, JSONObject>
     @Override
     protected void onPostExecute(JSONObject response)
     {
-        if(response != null)
-        {
-            try {
-                Log.e("App", "Success: " + response.getString("yourJsonElement") );
-            } catch (JSONException ex) {
-                Log.e("App", "Failure", ex);
-            }
-        }
+
     }
 }

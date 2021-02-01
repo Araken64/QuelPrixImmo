@@ -1,24 +1,16 @@
 package fr.univpau.android.quelpriximmo;
 
+import android.os.AsyncTask;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import fr.univpau.android.quelpriximmo.listeners.ButtonSearchListener;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.util.concurrent.ExecutionException;
 import static fr.univpau.android.quelpriximmo.PositionManager.getPositionViaGPS;
 
 public class SearchActivity extends AppCompatActivity {
@@ -39,34 +31,20 @@ public class SearchActivity extends AppCompatActivity {
         Log.i("GPS", "Longitude" + position.getLongitude());
         latitude = position.getLatitude();
         longitude = position.getLongitude();
-        /*
-        // http://api.cquest.org/dvf?lat=48.85&lon=2.35&dist=100
-        URL url = new URL("https://openclassrooms.com/");
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        URL url1 = null;
+        URL url2 = null;
         try {
-            URL url = new URL("http://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range);
-            Log.i("RES", url.toString());
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-            StringBuffer stringBuffer = new StringBuffer();
-            String line;
-            while ((line = bufferedReader.readLine()) != null)
-            {
-                stringBuffer.append(line);
-            }
-            JSONObject jsonObject = new JSONObject(stringBuffer.toString());
-            Log.i("RES", jsonObject.toString());
+            url1 = new URL("https://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range + "&type_local=Maison");
+            url2 = new URL("https://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range + "&type_local=Appartement");
+            AsyncTask<URL, Void, JSONObject> task = new AsyncDataTask().execute(url1, url2);
+            JSONObject datas = task.get();
+            Log.i("RES", datas.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (ExecutionException e) {
             e.printStackTrace();
-        }*/
-
-        AsyncDataTask getData = new AsyncDataTask();
-        JSONObject jsonObject = getData.doInBackground();
-        // Log.i("RES", jsonObject.toString());
+        }
     }
 }
