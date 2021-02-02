@@ -3,7 +3,6 @@ package fr.univpau.android.quelpriximmo;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +19,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Stream;
 
 /**
  * A fragment representing a list of Items.
@@ -112,7 +110,8 @@ public class MutationFragment extends Fragment {
         }
         android.util.Log.d("elian", String.valueOf(tmpMutationList.size()));
         for(final MutationContent.MutationItem mutation : tmpMutationList) {
-            boolean alreadyPresent = MutationContent.ITEMS.stream().anyMatch(item -> areSameMutation(item, mutation));
+            boolean alreadyPresent = anyMatch(mutation);
+            android.util.Log.d("elian", String.valueOf(alreadyPresent));
             if (!alreadyPresent) {
                 MutationContent.MutationItem mt = new MutationContent.MutationItem();
                 mt.valeur_fonciere = mutation.valeur_fonciere;
@@ -135,7 +134,7 @@ public class MutationFragment extends Fragment {
                 mt.good_list.add(culture);
                 MutationContent.ITEMS.add(mt);
             } else {
-                MutationContent.MutationItem mt = MutationContent.ITEMS.stream().filter(item -> areSameMutation(item, mutation)).findFirst().get();
+                MutationContent.MutationItem mt = getMatch(mutation);
                 GoodContent.GoodItem good = new GoodContent.GoodItem();
                 good.nb_pieces_principales = mutation.nombre_pieces_principales;
                 good.surface = mutation.surface_relle_bati;
@@ -171,6 +170,25 @@ public class MutationFragment extends Fragment {
         return m1.date_mutation.equals(m2.date_mutation) && m1.nature_mutation.equals(m2.nature_mutation)
             && m1.valeur_fonciere.equals(m2.valeur_fonciere) && m1.numero_voie.equals(m2.numero_voie)
             && m1.suffixe_numero.equals(m2.suffixe_numero) && m1.voie.equals(m2.voie);
+    }
 
+    private boolean anyMatch(MutationContent.MutationItem mutation) {
+        boolean anyMatch = false;
+        int index = 0;
+        while(index < MutationContent.ITEMS.size() && !anyMatch) {
+            anyMatch = areSameMutation(MutationContent.ITEMS.get(index), mutation);
+            index += 1;
+        }
+        return anyMatch;
+    }
+
+    private MutationContent.MutationItem getMatch(MutationContent.MutationItem mutation) {
+        int index = 0;
+        while(index < MutationContent.ITEMS.size()) {
+            if(areSameMutation(MutationContent.ITEMS.get(index), mutation))
+                return MutationContent.ITEMS.get(index);
+            index += 1;
+        }
+        return null;
     }
 }
