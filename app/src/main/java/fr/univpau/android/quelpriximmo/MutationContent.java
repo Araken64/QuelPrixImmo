@@ -37,11 +37,20 @@ public class MutationContent {
             mutationItem.type_voie = properties.optString("type_voie", "");
             mutationItem.voie = properties.optString("voie", "");
             mutationItem.date_mutation = properties.optString("date_mutation", "");
-            GoodContent.GoodItem good = new GoodContent.GoodItem();
-            good.type_local = properties.optString("type_local", "");
-            good.surface_relle_bati = properties.optString("surface_relle_bati", "");
-            good.nb_pieces_principales = properties.optString("nombre_pieces_principales", "");
-            mutationItem.good_list.add(good);
+
+            GoodContent.GoodItem home = new GoodContent.GoodItem();
+            home.type_local = properties.optString("type_local", "");
+            home.surface = properties.optString("surface_relle_bati", "");
+            home.nb_pieces_principales = properties.optString("nombre_pieces_principales", "");
+            mutationItem.good_list.add(home);
+
+            if(properties.has("surface_terrain")) {
+                GoodContent.GoodItem culture = new GoodContent.GoodItem();
+                culture.surface = properties.getString("surface_terrain");
+                culture.type_local = properties.optString("nature_culture", "");
+                mutationItem.good_list.add(culture);
+            }
+
             ITEMS.add(mutationItem);
         }
         return mutationItem;
