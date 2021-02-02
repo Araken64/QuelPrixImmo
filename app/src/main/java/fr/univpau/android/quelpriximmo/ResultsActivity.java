@@ -46,14 +46,14 @@ public class ResultsActivity extends AppCompatActivity {
             chart.setBackgroundColor(Color.rgb(255, 255, 255));
 
             chart.getDescription().setEnabled(false);
-            chart.setTouchEnabled(true);
+            chart.setTouchEnabled(false);
 
             // enable scaling and dragging
-            chart.setDragEnabled(true);
+            chart.setDragEnabled(false);
             chart.setScaleEnabled(true);
 
             // if disabled, scaling can be done on x- and y-axis separately
-            chart.setPinchZoom(true);
+            chart.setPinchZoom(false);
 
             chart.setDrawGridBackground(false);
             chart.setMaxHighlightDistance(300);
