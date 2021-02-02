@@ -3,6 +3,7 @@ package fr.univpau.android.quelpriximmo;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +17,10 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 /**
  * A fragment representing a list of Items.
@@ -76,6 +80,7 @@ public class MutationFragment extends Fragment {
     public void onStart() {
         super.onStart();
         AsyncTask<URL, Void, JSONObject> task = null;
+        List<MutationContent.MutationItem> tmpMutationList = new ArrayList<>();
         MutationContent.ITEMS.clear();
         try {
             URL url = new URL(ResultsActivity.strUrl); // MalformedURLException
@@ -89,10 +94,9 @@ public class MutationFragment extends Fragment {
                     String type_local = ((JSONObject) o.get("properties")).get("type_local").toString();
                     if (type_local.equals(getResources().getString(R.string.spinner_choice_maison)) || type_local.equals(getResources().getString(R.string.spinner_choice_appartement))) {
                         if (ResultsActivity.nombre_pieces_principales.equals("")) {
-                            MutationContent.MutationItem item = MutationContent.addJSON(o);
-
+                            tmpMutationList.add(mapJSON(o));
                         } else if (((JSONObject) o.get("properties")).get("nombre_pieces_principales").toString().equals(ResultsActivity.nombre_pieces_principales)) {
-                            MutationContent.MutationItem item = MutationContent.addJSON(o);
+                            tmpMutationList.add(mapJSON(o));
                         }
                     }
                 }
@@ -106,5 +110,67 @@ public class MutationFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        android.util.Log.d("elian", String.valueOf(tmpMutationList.size()));
+        for(final MutationContent.MutationItem mutation : tmpMutationList) {
+            boolean alreadyPresent = MutationContent.ITEMS.stream().anyMatch(item -> areSameMutation(item, mutation));
+            if (!alreadyPresent) {
+                MutationContent.MutationItem mt = new MutationContent.MutationItem();
+                mt.valeur_fonciere = mutation.valeur_fonciere;
+                mt.date_mutation = mutation.date_mutation;
+                mt.nature_mutation = mutation.nature_mutation;
+                mt.type_voie = mutation.type_voie;
+                mt.suffixe_numero = mutation.suffixe_numero;
+                mt.numero_voie = mutation.numero_voie;
+                mt.voie = mutation.voie;
+                mt.id = mutation.id;
+
+                GoodContent.GoodItem good = new GoodContent.GoodItem();
+                good.nb_pieces_principales = mutation.nombre_pieces_principales;
+                good.surface = mutation.surface_relle_bati;
+                good.type_local = mutation.type_local;
+                mt.good_list.add(good);
+                GoodContent.GoodItem culture = new GoodContent.GoodItem();
+                culture.surface = mutation.surface_terrain;
+                culture.type_local = mutation.nature_culture;
+                mt.good_list.add(culture);
+                MutationContent.ITEMS.add(mt);
+            } else {
+                MutationContent.MutationItem mt = MutationContent.ITEMS.stream().filter(item -> areSameMutation(item, mutation)).findFirst().get();
+                GoodContent.GoodItem good = new GoodContent.GoodItem();
+                good.nb_pieces_principales = mutation.nombre_pieces_principales;
+                good.surface = mutation.surface_relle_bati;
+                good.type_local = mutation.type_local;
+                mt.good_list.add(good);
+            }
+        }
+        android.util.Log.d("elian", String.valueOf(MutationContent.ITEMS.size()));
+    }
+
+    private MutationContent.MutationItem mapJSON(JSONObject json) throws JSONException {
+        MutationContent.MutationItem mutationItem = new MutationContent.MutationItem();
+        JSONObject properties = json.optJSONObject("properties");
+        if(properties != null) {
+            mutationItem.valeur_fonciere = properties.optString("valeur_fonciere", "");
+            mutationItem.nature_mutation = properties.optString("nature_mutation", "");
+            mutationItem.suffixe_numero = properties.optString("suffixe_numero", "");
+            mutationItem.numero_voie = properties.optString("numero_voie", "");
+            mutationItem.type_voie = properties.optString("type_voie", "");
+            mutationItem.voie = properties.optString("voie", "");
+            mutationItem.date_mutation = properties.optString("date_mutation", "");
+
+            mutationItem.type_local = properties.optString("type_local", "");
+            mutationItem.surface_relle_bati = properties.optString("surface_relle_bati", "");
+            mutationItem.nombre_pieces_principales = properties.optString("nombre_pieces_principales", "");
+            mutationItem.surface_terrain = properties.optString("surface_terrain");
+            mutationItem.nature_culture = properties.optString("nature_culture", "");
+        }
+        return mutationItem;
+    }
+
+    private boolean areSameMutation(MutationContent.MutationItem m1, MutationContent.MutationItem m2) {
+        return m1.date_mutation.equals(m2.date_mutation) && m1.nature_mutation.equals(m2.nature_mutation)
+            && m1.valeur_fonciere.equals(m2.valeur_fonciere) && m1.numero_voie.equals(m2.numero_voie)
+            && m1.suffixe_numero.equals(m2.suffixe_numero) && m1.voie.equals(m2.voie);
+
     }
 }
