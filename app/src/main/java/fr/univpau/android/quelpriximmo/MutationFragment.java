@@ -17,8 +17,6 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -52,7 +50,6 @@ public class MutationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -110,11 +107,8 @@ public class MutationFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        android.util.Log.d("elian", String.valueOf(tmpMutationList.size()));
         for(final MutationContent.MutationItem mutation : tmpMutationList) {
-            boolean alreadyPresent = anyMatch(mutation);
-            android.util.Log.d("elian", String.valueOf(alreadyPresent));
-            if (!alreadyPresent) {
+            if (!anyMatchInList(mutation, MutationContent.ITEMS)) { // if not already in list
                 MutationContent.MutationItem mt = new MutationContent.MutationItem();
                 mt.valeur_fonciere = mutation.valeur_fonciere;
                 mt.date_mutation = mutation.date_mutation;
@@ -137,8 +131,9 @@ public class MutationFragment extends Fragment {
                     mt.good_list.add(culture);
                 }
                 MutationContent.ITEMS.add(mt);
-            } else {
-                MutationContent.MutationItem mt = getMatch(mutation);
+            } else { // if already in the list
+                MutationContent.MutationItem mt = getMatchInList(mutation, MutationContent.ITEMS);
+                assert mt != null;
                 GoodContent.GoodItem good = new GoodContent.GoodItem();
                 good.nb_pieces_principales = mutation.nombre_pieces_principales;
                 good.surface = mutation.surface_relle_bati;
@@ -146,7 +141,6 @@ public class MutationFragment extends Fragment {
                 mt.good_list.add(good);
             }
         }
-        android.util.Log.d("elian", String.valueOf(MutationContent.ITEMS.size()));
     }
 
     private MutationContent.MutationItem mapJSON(JSONObject json) throws JSONException {
@@ -176,21 +170,21 @@ public class MutationFragment extends Fragment {
             && m1.suffixe_numero.equals(m2.suffixe_numero) && m1.voie.equals(m2.voie);
     }
 
-    private boolean anyMatch(MutationContent.MutationItem mutation) {
+    private boolean anyMatchInList(MutationContent.MutationItem mutation, List<MutationContent.MutationItem> list) {
         boolean anyMatch = false;
         int index = 0;
-        while(index < MutationContent.ITEMS.size() && !anyMatch) {
-            anyMatch = areSameMutation(MutationContent.ITEMS.get(index), mutation);
+        while(index < list.size() && !anyMatch) {
+            anyMatch = areSameMutation(list.get(index), mutation);
             index += 1;
         }
         return anyMatch;
     }
 
-    private MutationContent.MutationItem getMatch(MutationContent.MutationItem mutation) {
+    private MutationContent.MutationItem getMatchInList(MutationContent.MutationItem mutation, List<MutationContent.MutationItem> list) {
         int index = 0;
-        while(index < MutationContent.ITEMS.size()) {
-            if(areSameMutation(MutationContent.ITEMS.get(index), mutation))
-                return MutationContent.ITEMS.get(index);
+        while(index < list.size()) {
+            if(areSameMutation(list.get(index), mutation))
+                return list.get(index);
             index += 1;
         }
         return null;
