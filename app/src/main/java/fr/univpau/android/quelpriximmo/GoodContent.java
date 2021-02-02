@@ -47,6 +47,8 @@ public class GoodContent {
             this.nb_pieces_principales = nb_pieces_principales;
         }
 
+        public GoodItem() {}
+
         @Override
         public String toString() {
             return "GoodItem{" +
