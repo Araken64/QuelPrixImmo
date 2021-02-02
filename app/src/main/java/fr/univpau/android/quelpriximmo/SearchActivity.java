@@ -34,6 +34,8 @@ public class SearchActivity extends AppCompatActivity {
     public static double latitude;
     public static double longitude;
     public static int range = 500;
+    ImageButton button_param;
+    Button button_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,8 @@ public class SearchActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_search);
 
-        Button button_search = (Button) findViewById(R.id.button_search);
+        button_param = findViewById(R.id.imageButton_param);
+        button_search = findViewById(R.id.button_search);
         button_search.setOnClickListener(new ButtonSearchListener(this));
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -54,13 +57,23 @@ public class SearchActivity extends AppCompatActivity {
         latitude = position.getLatitude();
         longitude = position.getLongitude();
 
-        ImageButton button_param = findViewById(R.id.imageButton_param);
+
         button_param.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                button_param.setClickable(false);
                 Intent intent = new Intent(view.getContext(), SettingsActivity.class);
                 view.getContext().startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        button_param = findViewById(R.id.imageButton_param);
+        button_param.setClickable(true);
+        button_search = findViewById(R.id.button_search);
+        button_search.setClickable(true);
     }
 }
