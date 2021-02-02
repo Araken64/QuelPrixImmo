@@ -35,7 +35,10 @@ public class MutationRecyclerViewAdapter extends RecyclerView.Adapter<MutationRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mutation_item = mutation_values.get(position);
 
-        String str_valeur_nature = holder.mutation_item.valeur_fonciere + " / " + holder.mutation_item.nature_mutation;
+        String str_valeur_nature = "";
+        if (!holder.mutation_item.nature_mutation.isEmpty()) str_valeur_nature = holder.mutation_item.valeur_fonciere + "€";
+        if (!holder.mutation_item.nature_mutation.isEmpty()) str_valeur_nature += " / " + holder.mutation_item.nature_mutation;
+
         String str_adresse = holder.mutation_item.numero_voie + holder.mutation_item.suffixe_numero + " " + holder.mutation_item.type_voie + " " + holder.mutation_item.voie;
         MyGoodRecyclerViewAdapter adapter = new MyGoodRecyclerViewAdapter(holder.mutation_item.good_list);
 
