@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -128,10 +130,12 @@ public class MutationFragment extends Fragment {
                 good.surface = mutation.surface_relle_bati;
                 good.type_local = mutation.type_local;
                 mt.good_list.add(good);
-                GoodContent.GoodItem culture = new GoodContent.GoodItem();
-                culture.surface = mutation.surface_terrain;
-                culture.type_local = mutation.nature_culture;
-                mt.good_list.add(culture);
+                if(!mutation.surface_terrain.isEmpty()) {
+                    GoodContent.GoodItem culture = new GoodContent.GoodItem();
+                    culture.surface = mutation.surface_terrain;
+                    culture.type_local = mutation.nature_culture;
+                    mt.good_list.add(culture);
+                }
                 MutationContent.ITEMS.add(mt);
             } else {
                 MutationContent.MutationItem mt = getMatch(mutation);
