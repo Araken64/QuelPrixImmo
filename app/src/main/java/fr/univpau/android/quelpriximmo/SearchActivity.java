@@ -1,11 +1,9 @@
 package fr.univpau.android.quelpriximmo;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
@@ -19,19 +17,10 @@ import androidx.preference.PreferenceManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 
 import fr.univpau.android.quelpriximmo.listeners.ButtonSearchListener;
 import fr.univpau.android.quelpriximmo.listeners.ImageButtonListener;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 import static fr.univpau.android.quelpriximmo.PositionManager.getPositionViaGPS;
 
@@ -58,11 +47,6 @@ public class SearchActivity extends AppCompatActivity {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         range = pref.getInt("distance", 500);
         Log.i("DIST", String.valueOf(range));
-        /*Location position = getPositionViaGPS(this);
-        Log.i("GPS", "Latitude = " + position.getLatitude());
-        Log.i("GPS", "Longitude" + position.getLongitude());
-        latitude = position.getLatitude();
-        longitude = position.getLongitude();*/
 
         button_param.setOnClickListener(new ImageButtonListener(this));
     }
@@ -82,14 +66,12 @@ public class SearchActivity extends AppCompatActivity {
         if (requestCode == 1) {// If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                android.util.Log.d("elian", "requestcode 1");
                 Location position = getPositionViaGPS(this);
                 Log.i("GPS", "Latitude = " + position.getLatitude());
                 Log.i("GPS", "Longitude" + position.getLongitude());
                 latitude = position.getLatitude();
                 longitude = position.getLongitude();
             } else {
-                android.util.Log.d("elian", "else");
                 Toast.makeText(this, "Permission denied to use location", Toast.LENGTH_SHORT).show();
                 finish();
             }
