@@ -35,7 +35,8 @@ public class SettingsActivity extends AppCompatActivity {
         bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                                            @Override
                                            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
+                                               distance = bar.getProgress() + 500;
+                                               distance_display.setText(String.valueOf(distance) + "m");
                                            }
 
                                            @Override
