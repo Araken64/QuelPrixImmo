@@ -75,8 +75,8 @@ public class MutationFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        android.util.Log.d("elian", "onFragmentStart");
         AsyncTask<URL, Void, JSONObject> task = null;
+        MutationContent.ITEMS.clear();
         try {
             URL url = new URL(ResultsActivity.strUrl); // MalformedURLException
 
