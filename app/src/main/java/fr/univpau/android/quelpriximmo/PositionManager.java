@@ -12,7 +12,7 @@ public class PositionManager {
         Location position = null;
         String provider;
 
-        lm = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
+        lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         provider = lm.getBestProvider(criteria, true);
