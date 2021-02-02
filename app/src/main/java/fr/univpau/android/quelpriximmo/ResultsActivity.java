@@ -98,7 +98,7 @@ public class ResultsActivity extends AppCompatActivity {
                 if(!mutation.surface_terrain.isEmpty()) {
                     GoodContent.GoodItem culture = new GoodContent.GoodItem();
                     culture.surface = mutation.surface_terrain;
-                    culture.type_local = mutation.nature_culture;
+                    culture.type_local = "Nature du sol: " + mutation.nature_culture;
                     mt.good_list.add(culture);
                 }
                 MutationContent.ITEMS.add(mt);
