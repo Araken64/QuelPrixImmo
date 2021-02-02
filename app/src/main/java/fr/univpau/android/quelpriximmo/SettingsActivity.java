@@ -26,11 +26,13 @@ public class SettingsActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.settings_activity);
 
-        bar = findViewById(R.id.distance_seekbar);
-        distance_display = findViewById(R.id.distance_display);
+        bar = (SeekBar) findViewById(R.id.distance_seekbar);
+        distance_display = (TextView) findViewById(R.id.distance_display);
         bar.setMax(1500);
-        distance = bar.getProgress() + 500;
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        distance = pref.getInt("distance", 500);
         distance_display.setText(String.valueOf(distance) + "m");
+        bar.setProgress(distance - 500);
 
         bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                                            @Override
