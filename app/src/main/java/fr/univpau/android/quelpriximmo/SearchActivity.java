@@ -27,8 +27,6 @@ public class SearchActivity extends AppCompatActivity {
     public static double latitude;
     public static double longitude;
     public static int range = 500;
-    URL url = null;
-    AsyncTask<URL, Void, JSONObject> task = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,53 +42,5 @@ public class SearchActivity extends AppCompatActivity {
         Log.i("GPS", "Longitude" + position.getLongitude());
         latitude = position.getLatitude();
         longitude = position.getLongitude();
-
-        // Button button_search = findViewById(R.id.button_search);
-        /* button_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Spinner spinner_type_local = findViewById(R.id.type_local);
-                String str_type_local = spinner_type_local.getSelectedItem().toString();
-                Spinner spinner_nature_mutation = findViewById(R.id.nature_mutation);
-                String str_nature_mutation = spinner_nature_mutation.getSelectedItem().toString();
-                EditText et_nb_piece = findViewById(R.id.nombre_pieces_principales);
-                String str_nb_piece = et_nb_piece.getText().toString();
-                Log.i("TEST", str_nb_piece);
-                try {
-                    if (str_type_local.equals("Tout")) {
-                        url = new URL("https://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range + "&nature_mutation=" + str_nature_mutation);
-                    } else {
-                        url = new URL("https://api.cquest.org/dvf?lat=" + latitude + "&lon=" + longitude + "&dist=" + range + "&nature_mutation=" + str_nature_mutation + "&type_local=" + str_type_local);
-                    }
-//                    TODO A faire en début de l'activité result avec un petit waiting screen
-                    task = new AsyncDataTask().execute(url);
-                    JSONObject datas = task.get();
-                    JSONArray array_json_objects1 = (JSONArray) datas.get("features");
-                    JSONArray array_json_filtre_piece = new JSONArray();
-                    for (int i = 0; i < array_json_objects1.length() - 1; i++) {
-                        JSONObject o = array_json_objects1.getJSONObject(i);
-                        if (((JSONObject) o.get("properties")).has("type_local")) {
-                            String type_local = ((JSONObject) o.get("properties")).get("type_local").toString();
-                            if (type_local.equals("Maison") || type_local.equals("Appartement")) {
-                                if (str_nb_piece.equals("")) {
-                                    array_json_filtre_piece.put(o);
-                                } else if (((JSONObject) o.get("properties")).get("nombre_pieces_principales").toString().equals(str_nb_piece)) {
-                                    array_json_filtre_piece.put(o);
-                                }
-                            }
-                        }
-                    }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }); */
-
     }
 }
