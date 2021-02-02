@@ -24,25 +24,22 @@ public class GoodContent {
     }
 
     private static GoodItem createGoodItem(int position) {
-        String surface_relle_bati = "128 m²";
-        String surface_terrain = "2010 m²";
+        String surface = "128 m²";
         String type_local = "Maison";
         String nb_pieces_principales = "4p";
 
-        return new GoodItem(String.valueOf(position), surface_relle_bati, surface_terrain, type_local, nb_pieces_principales);
+        return new GoodItem(String.valueOf(position), surface, type_local, nb_pieces_principales);
     }
 
     public static class GoodItem {
         public String id;
-        public String surface_relle_bati;
-        public String surface_terrain;
+        public String surface;
         public String type_local;
         public String nb_pieces_principales;
 
-        public GoodItem(String id, String surface_relle_bati, String surface_terrain, String type_local, String nb_pieces_principales) {
+        public GoodItem(String id, String surface, String type_local, String nb_pieces_principales) {
             this.id = id;
-            this.surface_relle_bati = surface_relle_bati;
-            this.surface_terrain = surface_terrain;
+            this.surface = surface;
             this.type_local = type_local;
             this.nb_pieces_principales = nb_pieces_principales;
         }
@@ -52,9 +49,7 @@ public class GoodContent {
         @Override
         public String toString() {
             return "GoodItem{" +
-                "id='" + id + '\'' +
-                ", surface_relle_bati='" + surface_relle_bati + '\'' +
-                ", surface_terrain='" + surface_terrain + '\'' +
+                "surface='" + surface + '\'' +
                 ", type_local='" + type_local + '\'' +
                 ", nb_pieces_principales='" + nb_pieces_principales + '\'' +
                 '}';
