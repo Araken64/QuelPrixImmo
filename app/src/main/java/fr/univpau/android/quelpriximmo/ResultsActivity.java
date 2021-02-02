@@ -20,6 +20,7 @@ import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -42,9 +43,9 @@ public class ResultsActivity extends AppCompatActivity {
 
             chart = findViewById(R.id.chart1);
             chart.setViewPortOffsets(0, 0, 0, 0);
-            chart.setBackgroundColor(Color.rgb(104, 241, 175));
+            chart.setBackgroundColor(Color.rgb(255, 255, 255));
 
-            chart.setContentDescription("Mon titre");
+            chart.getDescription().setEnabled(false);
             chart.setTouchEnabled(true);
 
             // enable scaling and dragging
@@ -52,27 +53,32 @@ public class ResultsActivity extends AppCompatActivity {
             chart.setScaleEnabled(true);
 
             // if disabled, scaling can be done on x- and y-axis separately
-            chart.setPinchZoom(false);
+            chart.setPinchZoom(true);
 
             chart.setDrawGridBackground(false);
             chart.setMaxHighlightDistance(300);
 
             XAxis x = chart.getXAxis();
-            x.setAxisMaximum(2020);
-            x.setAxisMinimum(2014);
+            x.setAxisMaximum(2020f);
+            x.setAxisMinimum(2013f);
+            x.setTextSize(10f);
             x.setTextColor(Color.BLACK);
-            x.setPosition(XAxis.XAxisPosition.BOTTOM);
-            x.setLabelCount(6, true);
-            x.setDrawGridLines(false);
+            x.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+            x.setLabelCount(8, true);
+            x.setDrawGridLines(true);
+            x.setCenterAxisLabels(false);
 
 
             YAxis y = chart.getAxisLeft();
-            y.setLabelCount(10, false);
+            y.setTextSize(10f);
+            //y.setLabelCount(true);
             y.setTextColor(Color.BLACK);
-            y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+            y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
             y.setDrawGridLines(false);
             y.setAxisLineColor(Color.BLACK);
             y.setAxisMinimum(0);
+            y.setAxisMaximum(maxValue());
+            y.setCenterAxisLabels(false);
 
             // chart.getAxisRight().setEnabled(false);
 
@@ -82,20 +88,37 @@ public class ResultsActivity extends AppCompatActivity {
 
             chart.invalidate();
 
-            setData(6,20);
+            setData();
         }
     }
 
-    private void setData(int count, float range) {
+    private static int maxValue () {
+        int max = 0;
+        double fValeur = 0;
+        int iValeur = 0;
+        for (MutationContent.MutationItem item : MutationContent.ITEMS) {
+            String str_valeur = item.valeur_fonciere;
+            if (!str_valeur.isEmpty()) {
+                fValeur = Double.parseDouble(str_valeur);
+                iValeur = (int) Math.round(fValeur);
+                if (iValeur > max)
+                    max = iValeur;
+            }
+        }
+        return max+100000;
+    }
+
+    private void setData() {
 
         ArrayList<Entry> values = new ArrayList<>();
-
         List<MutationContent.MutationItem> items = MutationContent.ITEMS;
+        int annee_prec = 0;
+        float pas = 0f;
+        Collections.sort(items, new MutationComparator());
         for (MutationContent.MutationItem item : items) {
             String date = item.date_mutation;
             String str_annee = date.substring(0,4);
             String str_valeur = item.valeur_fonciere;
-
             int iAnnee = 0;
             double fValeur = 0.0;
             int iValeur = 0;
@@ -103,16 +126,15 @@ public class ResultsActivity extends AppCompatActivity {
                 iAnnee = Integer.parseInt(str_annee);
                 fValeur = Double.parseDouble(str_valeur);
                 iValeur = (int) Math.round(fValeur);
-                values.add(new Entry(iAnnee, iValeur));
+                if (annee_prec == iAnnee) {
+                    values.add(new Entry(iAnnee + pas, iValeur));
+                } else
+                    values.add(new Entry(iAnnee, iValeur));
+                annee_prec = iAnnee;
+
+
             }
         }
-
-        /*
-        for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * (range + 1)) + 20;
-            values.add(new Entry(i + 2014, val));
-        }
-        */
 
         LineDataSet set1;
 
@@ -123,19 +145,18 @@ public class ResultsActivity extends AppCompatActivity {
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
         } else {
-            // create a dataset and give it a type
             set1 = new LineDataSet(values, "DataSet 1");
 
-            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            set1.setCubicIntensity(0.2f);
+            set1.setMode(LineDataSet.Mode.STEPPED);
+            set1.setCubicIntensity(0.1f);
             set1.setDrawFilled(true);
-            set1.setDrawCircles(false);
+            set1.setDrawCircles(true);
             set1.setLineWidth(1.8f);
             set1.setCircleRadius(4f);
-            set1.setCircleColor(Color.WHITE);
-            set1.setHighLightColor(Color.rgb(244, 117, 117));
-            set1.setColor(Color.WHITE);
-            set1.setFillColor(Color.WHITE);
+            set1.setCircleColor(Color.rgb(255, 233, 0));
+            set1.setHighLightColor(Color.rgb(255, 160, 0));
+            set1.setColor(Color.RED);
+            set1.setFillColor(Color.rgb(255, 160, 0));
             set1.setFillAlpha(100);
             set1.setDrawHorizontalHighlightIndicator(false);
             set1.setFillFormatter(new IFillFormatter() {
