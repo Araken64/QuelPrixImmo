@@ -7,7 +7,7 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/grid_mutation"
-        android:layout_width="match_parent"
+        android:layout_width="331dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/margin_mutation"
         android:layout_weight="1"
@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/image_mutation"
-            android:layout_width="@dimen/image_size_big"
-            android:layout_height="@dimen/image_size_big"
+            android:layout_width="61dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="@dimen/margin_right_image"
             android:layout_marginRight="@dimen/margin_right_image"
             android:layout_weight="1"

@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="mutationGray">#DCDCDC</color>
-    <color name="goodGray">#C0C0C0</color>
+    <color name="goodGray">#DFDED3</color>
     <color name="orange_graph">#FFA000</color>
 </resources>

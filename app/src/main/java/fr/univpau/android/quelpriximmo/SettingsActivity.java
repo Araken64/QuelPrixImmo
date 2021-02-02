@@ -18,6 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
     int distance;
     SeekBar bar;
     TextView distance_display;
+    Button button_valider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,11 @@ public class SettingsActivity extends AppCompatActivity {
                                        }
         );
 
-        Button button_valider = findViewById(R.id.button_valider);
+        button_valider = findViewById(R.id.button_valider);
         button_valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                button_valider.setClickable(false);
                 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(view.getContext());
                 SharedPreferences.Editor ed = pref.edit();
                 ed.putInt("distance", distance);
@@ -65,5 +67,12 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        button_valider = findViewById(R.id.button_valider);
+        button_valider.setClickable(true);
     }
 }

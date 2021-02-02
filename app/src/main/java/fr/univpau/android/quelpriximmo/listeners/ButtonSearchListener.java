@@ -17,6 +17,7 @@ public class ButtonSearchListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        v.findViewById(R.id.button_search).setClickable(false);
         Intent results_intent = new Intent(context, ResultsActivity.class);
         View root = (View) v.getRootView();
         if(root != null) {
