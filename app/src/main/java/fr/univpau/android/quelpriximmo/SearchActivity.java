@@ -20,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import fr.univpau.android.quelpriximmo.listeners.ButtonSearchListener;
+import fr.univpau.android.quelpriximmo.listeners.ImageButtonListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,15 +59,7 @@ public class SearchActivity extends AppCompatActivity {
         latitude = position.getLatitude();
         longitude = position.getLongitude();
 
-
-        button_param.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                button_param.setClickable(false);
-                Intent intent = new Intent(view.getContext(), SettingsActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
+        button_param.setOnClickListener(new ImageButtonListener(this));
     }
 
     @Override
