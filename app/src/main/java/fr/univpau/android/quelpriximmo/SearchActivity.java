@@ -58,11 +58,11 @@ public class SearchActivity extends AppCompatActivity {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         range = pref.getInt("distance", 500);
         Log.i("DIST", String.valueOf(range));
-        Location position = getPositionViaGPS(this);
+        /*Location position = getPositionViaGPS(this);
         Log.i("GPS", "Latitude = " + position.getLatitude());
         Log.i("GPS", "Longitude" + position.getLongitude());
         latitude = position.getLatitude();
-        longitude = position.getLongitude();
+        longitude = position.getLongitude();*/
 
         button_param.setOnClickListener(new ImageButtonListener(this));
     }
