@@ -63,8 +63,10 @@
                     android:id="@+id/type_local"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="0"
-                    android:entries="@array/type_local_entries" />
+                    android:entries="@array/type_local_entries"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -88,6 +90,7 @@
                     android:id="@+id/nature_mutation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="0"
                     android:entries="@array/nature_mutation_entries" />
             </LinearLayout>
