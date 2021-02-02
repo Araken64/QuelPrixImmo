@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import fr.univpau.android.quelpriximmo.listeners.ButtonSearchListener;
+import fr.univpau.android.quelpriximmo.listeners.ImageButtonListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
