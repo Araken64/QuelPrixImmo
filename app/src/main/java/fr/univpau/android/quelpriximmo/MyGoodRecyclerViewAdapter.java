@@ -37,12 +37,17 @@ public class MyGoodRecyclerViewAdapter extends RecyclerView.Adapter<MyGoodRecycl
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.good_item = good_values.get(position);
-        if (holder.good_item.type_local.equals("Appartement"))
+        holder.surface.setText(holder.good_item.surface + " m²");
+        String str_local_pieces = holder.good_item.type_local;
+        if (holder.good_item.type_local.equals("Appartement")) {
             holder.image_good.setImageResource(R.drawable.appartement);
-        else if (holder.good_item.type_local.equals("Maison"))
+            str_local_pieces += " / " + holder.good_item.nb_pieces_principales + " p";
+        } else if (holder.good_item.type_local.equals("Maison")) {
             holder.image_good.setImageResource(R.drawable.maison);
-        holder.surface.setText(holder.good_item.surface_relle_bati);
-        holder.local_pieces.setText(holder.good_item.type_local + " / " +holder.good_item.nb_pieces_principales);
+            str_local_pieces += " / " + holder.good_item.nb_pieces_principales + " p";
+        } else
+            holder.image_good.setImageResource(R.drawable.arbre);
+        holder.local_pieces.setText(str_local_pieces);
     }
 
     @Override
