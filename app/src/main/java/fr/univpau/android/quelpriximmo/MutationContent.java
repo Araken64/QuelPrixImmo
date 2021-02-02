@@ -26,36 +26,6 @@ public class MutationContent {
         }
     }
 
-    public static MutationItem addJSON(JSONObject json) throws JSONException {
-        MutationItem mutationItem = new MutationItem();
-        JSONObject properties = json.optJSONObject("properties");
-        if(properties != null) {
-            mutationItem.valeur_fonciere = properties.optString("valeur_fonciere", "");
-            mutationItem.nature_mutation = properties.optString("nature_mutation", "");
-            mutationItem.suffixe_numero = properties.optString("suffixe_numero", "");
-            mutationItem.numero_voie = properties.optString("numero_voie", "");
-            mutationItem.type_voie = properties.optString("type_voie", "");
-            mutationItem.voie = properties.optString("voie", "");
-            mutationItem.date_mutation = properties.optString("date_mutation", "");
-
-            GoodContent.GoodItem home = new GoodContent.GoodItem();
-            home.type_local = properties.optString("type_local", "");
-            home.surface = properties.optString("surface_relle_bati", "");
-            home.nb_pieces_principales = properties.optString("nombre_pieces_principales", "");
-            mutationItem.good_list.add(home);
-
-            if(properties.has("surface_terrain")) {
-                GoodContent.GoodItem culture = new GoodContent.GoodItem();
-                culture.surface = properties.getString("surface_terrain");
-                culture.type_local = properties.optString("nature_culture", "");
-                mutationItem.good_list.add(culture);
-            }
-
-            ITEMS.add(mutationItem);
-        }
-        return mutationItem;
-    }
-
     private static MutationItem createMutationItem(int position) {
         MutationItem mutationItem = new MutationItem();
         mutationItem.id = String.valueOf(position);
@@ -78,6 +48,14 @@ public class MutationContent {
         public String numero_voie = "";
         public String type_voie = "";
         public String voie = "";
+
+        public String surface_relle_bati ="";
+        public String type_local ="";
+        public String nombre_pieces_principales ="";
+
+        public String surface_terrain ="";
+        public String nature_culture ="";
+
         public List<GoodContent.GoodItem> good_list = new ArrayList<>();
 
         public MutationItem() {
