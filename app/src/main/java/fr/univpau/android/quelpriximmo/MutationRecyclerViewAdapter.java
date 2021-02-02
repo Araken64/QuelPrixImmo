@@ -37,7 +37,7 @@ public class MutationRecyclerViewAdapter extends RecyclerView.Adapter<MutationRe
 
         String str_valeur_nature = holder.mutation_item.valeur_fonciere + " / " + holder.mutation_item.nature_mutation;
         String str_adresse = holder.mutation_item.numero_voie + holder.mutation_item.suffixe_numero + " " + holder.mutation_item.type_voie + " " + holder.mutation_item.voie;
-        MyGoodRecyclerViewAdapter adapter = new MyGoodRecyclerViewAdapter(GoodContent.ITEMS);
+        MyGoodRecyclerViewAdapter adapter = new MyGoodRecyclerViewAdapter(holder.mutation_item.good_list);
 
         holder.valeur_nature.setText(str_valeur_nature);
         holder.date_mutation.setText(holder.mutation_item.date_mutation);
